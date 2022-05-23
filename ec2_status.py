@@ -17,36 +17,7 @@ statuses = ec2_client.describe_instance_status()
 for status in statuses['InstanceStatuses']:
   ins_status = status['InstanceStatus']['Status']
   sys_status = status['SystemStatus']['Status']
-  print(f"Instance {status['InstanceId']} status is {ins_status} and system status is: {sys_status}")
+  state = status['InstanceState']['Name']
+  print(f"Instance {status['InstanceId']} is {state} with instance status {ins_status} and system status is: {sys_status}")
 
-# # Create VPC
-# new_vpc = ec2_resource.create_vpc(
-#   CidrBlock="10.0.0.0/16"
-# )
-# new_vpc.create_subnet(
-#   CidrBlock="10.0.1.0/24"
-# )
-# new_vpc.create_subnet(
-#   CidrBlock="10.0.2.0/24"
-# )
-# new_vpc.create_tags(
-#   Tags=[
-#     {
-#       'Key': 'Name',
-#       'Value': 'my-vpc'
-#     }
-#   ]
-# )
-
-# print('--------')
-
-# all_vpcs = ec2_client.describe_vpcs()
-# vpcs = all_vpcs["Vpcs"]
-
-# # Get the VPC ID
-# for vpc in vpcs:
-#   print(vpc["VpcId"])
-#   cidr_block_assoc_sets = vpc["CidrBlockAssociationSet"]
-#   for assoc_set in cidr_block_assoc_sets:
-#     print(assoc_set["CidrBlock"]) 
 
